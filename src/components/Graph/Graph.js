@@ -1,41 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
-
-var enterNode = (selection) => {
-  selection.classed('node', true);
-
-  selection.append('circle')
-    .attr('r', (d) => d.size);
-
-  selection.append('text')
-    .attr('x', (d) => d.size + 5)
-    .attr('dy', '.35em')
-    .text((d) => d.key);
-};
-
-var updateNode = (selection) => {
-  selection.attr('transform', (d) => 'translate(' + d.x + ',' + d.y + ')');
-};
-
-var enterLink = (selection) => {
-  selection.classed('link', true)
-    .attr('stroke-width', (d) => d.size);
-};
-
-var updateLink = (selection) => {
-  selection.attr('x1', (d) => d.source.x)
-    .attr('y1', (d) => d.source.y)
-    .attr('x2', (d) => d.target.x)
-    .attr('y2', (d) => d.target.y);
-};
-
-var updateGraph = (selection) => {
-  selection.selectAll('.node')
-    .call(updateNode);
-  selection.selectAll('.link')
-    .call(updateLink);
-};
+import * as d3Graph from '../D3Graph/d3Graph';
+import './style.css';
 
 class Graph extends Component {
   constructor (props) {
@@ -51,27 +18,26 @@ class Graph extends Component {
   }
 
   componentDidMount () {
-    this.d3Graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
+    this.graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
     this.force.on('tick', () => {
-      this.d3Graph.call(updateGraph);
+      this.graph.call(d3Graph.updateGraph);
     });
   }
 
   shouldComponentUpdate (nextProps) {
-    this.d3Graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
+    this.graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
 
-    const d3Nodes = this.d3Graph.selectAll('.node')
+    const d3Nodes = this.graph.selectAll('.node')
       .data(nextProps.nodes, node => node.key);
-    d3Nodes.enter().append('g').call(enterNode);
+    d3Nodes.enter().append('g').call(d3Graph.enterNode);
     d3Nodes.exit().remove();
-    d3Nodes.call(updateNode);
+    d3Nodes.call(d3Graph.updateNode);
 
-    debugger;
-    const d3Links = this.d3Graph.selectAll('.link')
+    const d3Links = this.graph.selectAll('.link')
       .data(nextProps.links, link => link.key);
-    d3Links.enter().insert('line', '.node').call(enterLink);
+    d3Links.enter().insert('line', '.node').call(d3Graph.enterLink);
     d3Links.exit().remove();
-    d3Links.call(updateLink);
+    d3Links.call(d3Graph.updateLink);
 
     this.force.nodes(nextProps.nodes)
       .links(nextProps.links);
