@@ -41,6 +41,7 @@ class EntityView extends Component {
       graph.links.forEach(function (d, i) {
         graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
         graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
+        graph.links[i].key = `${graph.links[i].source},${graph.links[i].target}`;
       });
 
       graph.nodes.forEach(function (d, i) { graph.nodes[i] = { 'name': nodesmap[d].name, 'group': nodesmap[d].group }; });
@@ -55,13 +56,6 @@ class EntityView extends Component {
   }
 
   render () {
-    if (!(this.state.nodes.length && this.state.links.length)) {
-      return (
-        <h2>
-          Loading data about 81k H1B visas in the software industry\
-        </h2>
-      );
-    }
     const params = {
       nodes: this.state.nodes,
       links: this.state.links,

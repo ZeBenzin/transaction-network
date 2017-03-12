@@ -58,26 +58,20 @@ class Graph extends Component {
   }
 
   shouldComponentUpdate (nextProps) {
-    debugger;
     this.d3Graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
 
-    this.d3Graph.selectAll('.node')
-      .data(nextProps.nodes, node => node.key)
-      .enter()
-      .append('g')
-      .call(enterNode)
-      .exit()
-      .remove()
-      .call(updateNode);
+    const d3Nodes = this.d3Graph.selectAll('.node')
+      .data(nextProps.nodes, node => node.key);
+    d3Nodes.enter().append('g').call(enterNode);
+    d3Nodes.exit().remove();
+    d3Nodes.call(updateNode);
 
-    this.d3Graph.selectAll('.link')
-      .data(nextProps.links, link => link.key)
-      .enter()
-      .insert('line', '.node')
-      .call(enterLink)
-      .exit()
-      .remove()
-      .call(updateLink);
+    debugger;
+    const d3Links = this.d3Graph.selectAll('.link')
+      .data(nextProps.links, link => link.key);
+    d3Links.enter().insert('line', '.node').call(enterLink);
+    d3Links.exit().remove();
+    d3Links.call(updateLink);
 
     this.force.nodes(nextProps.nodes)
       .links(nextProps.links);
