@@ -19,10 +19,6 @@ class EntityView extends Component {
     this.updateData();
   }
 
-  componentWillReceiveProps (nextProps) {
-    debugger;
-  }
-
   updateData () {
     d3.csv(this.props.url, (error, data) => {
       const graph = { 'nodes': [], 'links': [] };
@@ -52,6 +48,7 @@ class EntityView extends Component {
         d.x = 960 / 2 + _.random(-150, 150);
         d.y = 500 / 2 + _.random(-25, 25);
         d.size = _.random(4, 10);
+        d.key = _.random(0, 30);
       });
       this.setState({nodes: graph.nodes, links: graph.links});
     });
@@ -74,9 +71,7 @@ class EntityView extends Component {
 
     return (
       <div>
-        <svg width={params.width} height={params.height}>
-          <Graph {...params} />
-        </svg>
+        <Graph {...params} />
       </div>
     );
   }
