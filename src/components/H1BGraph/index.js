@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import d3 from 'd3';
+import _ from 'lodash';
 import Graph from '../Graph';
 import '../Graph/style.css';
 
@@ -6,32 +8,66 @@ class EntityView extends Component {
   constructor () {
     super();
     this.state = {
-      nodes: {},
-      edges: {},
-      width: 640,
-      height: 480
+      nodes: [],
+      links: [],
+      width: 960,
+      height: 500
     };
   }
 
-  componentWillMount () {
-    this.loadRawData();
+  componentDidMount () {
+    this.updateData();
   }
 
-  loadRawData () {
-    // Will eventually use JSON for this step
-    const nodes = [
-      { x: this.state.width / 3, y: this.state.height / 2 },
-      { x: 2 * this.state.width / 3, y: this.state.height / 2 }
-    ];
-    const edges = [{ source: 0, target: 1 }];
-    this.setState({nodes, edges});
-    console.log(this.state);
+  componentWillReceiveProps (nextProps) {
+    debugger;
+  }
+
+  updateData () {
+    d3.csv(this.props.url, (error, data) => {
+      const graph = { 'nodes': [], 'links': [] };
+      data.forEach(function (d) {
+        graph.nodes.push({ 'name': d.source, 'group': +d.groupsource });
+        graph.nodes.push({ 'name': d.target, 'group': +d.grouptarget });
+
+        graph.links.push({ 'source': d.source, 'target': d.target, 'value': +d.value });
+      });
+
+      var nodesmap = d3.nest()
+        .key(function (d) { return d.name; })
+        .rollup(function (d) { return { 'name': d[0].name, 'group': d[0].group }; })
+        .map(graph.nodes);
+
+      graph.nodes = d3.keys(d3.nest()
+       .key(function (d) { return d.name; })
+       .map(graph.nodes));
+
+      graph.links.forEach(function (d, i) {
+        graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
+        graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
+      });
+
+      graph.nodes.forEach(function (d, i) { graph.nodes[i] = { 'name': nodesmap[d].name, 'group': nodesmap[d].group }; });
+      _.each(graph.nodes, d => {
+        d.x = 960 / 2 + _.random(-150, 150);
+        d.y = 500 / 2 + _.random(-25, 25);
+        d.size = _.random(4, 10);
+      });
+      this.setState({nodes: graph.nodes, links: graph.links});
+    });
   }
 
   render () {
+    if (!(this.state.nodes.length && this.state.links.length)) {
+      return (
+        <h2>
+          Loading data about 81k H1B visas in the software industry\
+        </h2>
+      );
+    }
     const params = {
       nodes: this.state.nodes,
-      edges: this.state.edges,
+      links: this.state.links,
       width: this.state.width,
       height: this.state.height
     };
