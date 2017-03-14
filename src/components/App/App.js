@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import EntityView from './components/EntityView/';
+import EntityView from '../EntityView/';
 
 class App extends Component {
   render () {
