@@ -9,14 +9,11 @@ class FetchDataButton extends Component {
   }
 
   getEntityData () {
-    $.get('http://localhost:3001/', function (data) {
-      debugger;
-      console.log('data');
-    }).done(() => {
-      console.log('Good job!');
-    }).fail((data) => {
-      console.log('Oh dear');
+    $.get('http://localhost:3001/').done((data) => {
       console.log(data);
+    }).fail((data) => {
+      console.log(data);
+      console.error('Request resulted in an error');
     });
   }
 }
