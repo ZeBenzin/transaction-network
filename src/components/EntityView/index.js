@@ -31,6 +31,7 @@ class EntityView extends Component {
 
   render () {
     // Get the nodes + edges from redux
+    // this.sanitizeData();
     const params = {
       nodes: this.state.nodes,
       links: this.state.links,
@@ -46,6 +47,8 @@ class EntityView extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ transactions: state.transactions });
+const mapStateToProps = (state) => {
+  return { transactions: state.transactions };
+};
 
 export default connect(mapStateToProps)(EntityView);

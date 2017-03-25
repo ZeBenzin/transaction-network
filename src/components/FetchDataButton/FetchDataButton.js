@@ -6,7 +6,7 @@ import { setTransactions } from '../../actions/actionCreators';
 class FetchDataButton extends Component {
   render () {
     return (
-      <button onClick={this.getEntityData}>Get New Data</button>
+      <button onClick={this.getEntityData.bind(this)}>Get New Data</button>
     );
   }
 
@@ -16,8 +16,7 @@ class FetchDataButton extends Component {
 
   getEntityData () {
     $.get('http://localhost:3001/').done((data) => {
-      console.log(data);
-      this.handleTransactionsReceived(data);
+      this.handleTransactionsReceived(JSON.parse(data));
     }).fail((data) => {
       console.log(data);
       console.error('Request resulted in an error');
@@ -25,4 +24,4 @@ class FetchDataButton extends Component {
   }
 }
 
-export default FetchDataButton;
+export default connect(null)(FetchDataButton);
