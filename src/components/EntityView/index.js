@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import Graph from '../Graph';
 import { randomData } from './generateData.js';
 
@@ -22,7 +23,14 @@ class EntityView extends Component {
     this.setState(newState);
   }
 
+  sanitizeData () {
+    const graphData = this.props.transactions;
+    return graphData;
+    // Do magic here to extract nodes/edges from transactional data.
+  }
+
   render () {
+    // Get the nodes + edges from redux
     const params = {
       nodes: this.state.nodes,
       links: this.state.links,
@@ -38,4 +46,6 @@ class EntityView extends Component {
   }
 }
 
-export default EntityView;
+const mapStateToProps = (state) => ({ transactions: state.transactions });
+
+export default connect(mapStateToProps)(EntityView);
