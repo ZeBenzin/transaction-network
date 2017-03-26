@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import { setTransactions } from '../../actions/actionCreators';
 
+const { func } = React.PropTypes;
+
 class FetchDataButton extends Component {
   render () {
     return (
@@ -11,7 +13,7 @@ class FetchDataButton extends Component {
   }
 
   handleTransactionsReceived (transactions) {
-    this.props.dispatch(setTransactions(transactions));
+    this.props.dispatchSetTransactions(transactions);
   }
 
   getEntityData () {
@@ -24,4 +26,16 @@ class FetchDataButton extends Component {
   }
 }
 
-export default connect(null)(FetchDataButton);
+FetchDataButton.propTypes = {
+  dispatchSetTransactions: func
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchSetTransactions (transactions) {
+      dispatch(setTransactions(transactions));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(FetchDataButton);

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Graph from '../Graph';
 import { randomData } from './generateData.js';
 
+const { object } = React.PropTypes;
+
 class EntityView extends Component {
   constructor () {
     super();
@@ -19,7 +21,7 @@ class EntityView extends Component {
   }
 
   updateData () {
-    var newState = randomData(this.state.nodes, this.state.width, this.state.height);
+    const newState = randomData({ ...this.state });
     this.setState(newState);
   }
 
@@ -30,8 +32,9 @@ class EntityView extends Component {
   }
 
   render () {
+    // TODO
     // Get the nodes + edges from redux
-    // this.sanitizeData();
+    this.sanitizeData();
     const params = {
       nodes: this.state.nodes,
       links: this.state.links,
@@ -46,6 +49,10 @@ class EntityView extends Component {
     );
   }
 }
+
+EntityView.propTypes = {
+  transactions: object
+};
 
 const mapStateToProps = (state) => {
   return { transactions: state.transactions };

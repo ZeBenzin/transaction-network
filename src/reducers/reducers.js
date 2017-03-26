@@ -5,7 +5,7 @@ const DEFAULT_STATE = {
 };
 
 const setTransactions = (state, action) => {
-  return Object.assign({}, state, { transactions: action.transactions });
+  return { ...state, transactions: action.transactions };
 };
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
