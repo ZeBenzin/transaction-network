@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function randomData (nodes, width, height) {
+export function randomData ({ nodes, width, height }) {
   var oldNodes = nodes;
   // generate some data randomly
   nodes = _.chain(_.range(_.random(10, 30)))
