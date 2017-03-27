@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import Graph from '../Graph';
 import { randomData } from './generateData.js';
 
@@ -27,6 +28,23 @@ class EntityView extends Component {
 
   sanitizeData () {
     const graphData = this.props.transactions;
+    const outputs = graphData.outputs;
+    const sanitizeInputs = _.each(graphData.inputs, (input, index) => {
+      return {
+        index,
+        key: input.addresses[0],
+        px: 500,
+        py: 400,
+        x: 500,
+        y: 400,
+        size: 5,
+        weight: 3
+      };
+    });
+
+    const sanitizedOutputs = _.each(graphData.outputs, (output, index) => {
+      return {};
+    });
     return graphData;
     // Do magic here to extract nodes/edges from transactional data.
   }
