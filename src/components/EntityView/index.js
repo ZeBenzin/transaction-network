@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Graph from '../Graph';
-import { randomData } from './generateData.js';
 
 const { object } = React.PropTypes;
 
@@ -17,45 +16,57 @@ class EntityView extends Component {
     };
   }
 
-  componentDidMount () {
-    this.updateData();
-  }
-
-  updateData () {
-    const newState = randomData({ ...this.state });
-    this.setState(newState);
-  }
-
   sanitizeData () {
     const graphData = this.props.transactions;
-    const outputs = graphData.outputs;
-    const sanitizeInputs = _.each(graphData.inputs, (input, index) => {
-      return {
+    const links = [];
+    const sanitizedInputs = [];
+    _.each(graphData.inputs, (input, index) => {
+      const node = {
         index,
         key: input.addresses[0],
-        px: 500,
-        py: 400,
         x: 500,
         y: 400,
         size: 5,
         weight: 3
       };
+      sanitizedInputs.push(node);
+      links.push({
+        key: node.key,
+        size: 3,
+        source: node
+      });
     });
 
-    const sanitizedOutputs = _.each(graphData.outputs, (output, index) => {
-      return {};
+    const sanitizedOutputs = [];
+    _.each(graphData.outputs, (output, index) => {
+      sanitizedOutputs.push({
+        index,
+        key: output.addresses[0],
+        x: 500,
+        y: 400,
+        size: 5,
+        weight: 3
+      });
     });
-    return graphData;
-    // Do magic here to extract nodes/edges from transactional data.
+    _.each(links, (link) => {
+      link.target = sanitizedOutputs[0];
+      link.key = `${link.key},${sanitizedOutputs[0].key}`;
+    });
+    const nodes = [
+      ...sanitizedInputs,
+      ...sanitizedOutputs
+    ];
+    return {
+      nodes,
+      links
+    };
   }
 
   render () {
-    // TODO
-    // Get the nodes + edges from redux
-    this.sanitizeData();
+    const { nodes, links } = this.sanitizeData();
     const params = {
-      nodes: this.state.nodes,
-      links: this.state.links,
+      nodes,
+      links,
       width: this.state.width,
       height: this.state.height
     };
