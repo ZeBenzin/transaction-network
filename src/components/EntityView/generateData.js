@@ -39,6 +39,7 @@ export function randomData ({ nodes, width, height }) {
   maintainNodePositions(oldNodes, nodes, width, height);
 
   return {nodes, links};
+  console.log("New feature");
 }
 
 function maintainNodePositions (oldNodes, nodes, width, height) {
