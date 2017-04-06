@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Graph from '../Graph';
+//import './style.css';
 
 const { object } = React.PropTypes;
 
@@ -16,10 +17,12 @@ class EntityView extends Component {
     };
   }
 
-  sanitizeData () {
+  sanitiseData () {
+    // TODO
+    // Let the server handle this sanitisation
     const graphData = this.props.transactions;
     const links = [];
-    const sanitizedInputs = [];
+    const sanitisedInputs = [];
     _.each(graphData.inputs, (input, index) => {
       const node = {
         index,
@@ -29,7 +32,7 @@ class EntityView extends Component {
         size: 5,
         weight: 3
       };
-      sanitizedInputs.push(node);
+      sanitisedInputs.push(node);
       links.push({
         key: node.key,
         size: 3,
@@ -37,9 +40,9 @@ class EntityView extends Component {
       });
     });
 
-    const sanitizedOutputs = [];
+    const sanitisedOutputs = [];
     _.each(graphData.outputs, (output, index) => {
-      sanitizedOutputs.push({
+      sanitisedOutputs.push({
         index,
         key: output.addresses[0],
         x: 500,
@@ -49,12 +52,12 @@ class EntityView extends Component {
       });
     });
     _.each(links, (link) => {
-      link.target = sanitizedOutputs[0];
-      link.key = `${link.key},${sanitizedOutputs[0].key}`;
+      link.target = sanitisedOutputs[0];
+      link.key = `${link.key},${sanitisedOutputs[0].key}`;
     });
     const nodes = [
-      ...sanitizedInputs,
-      ...sanitizedOutputs
+      ...sanitisedInputs,
+      ...sanitisedOutputs
     ];
     return {
       nodes,
@@ -63,7 +66,7 @@ class EntityView extends Component {
   }
 
   render () {
-    const { nodes, links } = this.sanitizeData();
+    const { nodes, links } = this.sanitiseData();
     const params = {
       nodes,
       links,
