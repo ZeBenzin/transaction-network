@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import Graph from '../Graph';
-import { randomData } from './generateData.js';
+//import './style.css';
 
 const { object } = React.PropTypes;
 
@@ -16,28 +17,59 @@ class EntityView extends Component {
     };
   }
 
-  componentDidMount () {
-    this.updateData();
-  }
-
-  updateData () {
-    const newState = randomData({ ...this.state });
-    this.setState(newState);
-  }
-
-  sanitizeData () {
+  sanitiseData () {
+    // TODO
+    // Let the server handle this sanitisation
     const graphData = this.props.transactions;
-    return graphData;
-    // Do magic here to extract nodes/edges from transactional data.
+    const links = [];
+    const sanitisedInputs = [];
+    _.each(graphData.inputs, (input, index) => {
+      const node = {
+        index,
+        key: input.addresses[0],
+        x: 500,
+        y: 400,
+        size: 5,
+        weight: 3
+      };
+      sanitisedInputs.push(node);
+      links.push({
+        key: node.key,
+        size: 3,
+        source: node
+      });
+    });
+
+    const sanitisedOutputs = [];
+    _.each(graphData.outputs, (output, index) => {
+      sanitisedOutputs.push({
+        index,
+        key: output.addresses[0],
+        x: 500,
+        y: 400,
+        size: 5,
+        weight: 3
+      });
+    });
+    _.each(links, (link) => {
+      link.target = sanitisedOutputs[0];
+      link.key = `${link.key},${sanitisedOutputs[0].key}`;
+    });
+    const nodes = [
+      ...sanitisedInputs,
+      ...sanitisedOutputs
+    ];
+    return {
+      nodes,
+      links
+    };
   }
 
   render () {
-    // TODO
-    // Get the nodes + edges from redux
-    this.sanitizeData();
+    const { nodes, links } = this.sanitiseData();
     const params = {
-      nodes: this.state.nodes,
-      links: this.state.links,
+      nodes,
+      links,
       width: this.state.width,
       height: this.state.height
     };

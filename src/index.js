@@ -5,5 +5,5 @@ import './index.css';
 
 ReactDOM.render(
   <App />,
-  document.getElementById('entityView')
+  document.getElementById('entity-view')
 );
