@@ -26,7 +26,6 @@ class Graph extends Component {
 
   shouldComponentUpdate (nextProps) {
     this.graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
-
     const d3Nodes = this.graph.selectAll('.node')
       .data(nextProps.nodes, node => node.key);
     d3Nodes.enter().append('g').call(d3Graph.enterNode);

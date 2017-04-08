@@ -1,17 +1,22 @@
-var express = require('express');
-var request = require('request');
-var cors = require('cors');
+const express = require('express');
+const request = require('request');
+const cors = require('cors');
 
 const app = express();
 
-app.get('/:address', cors(), function (req, res) {
+app.get('/:address', cors(), (req, res) => {
   const url = `https://api.blockcypher.com/v1/btc/main/txs/${req.params.address}`;
-  console.log(url);
-  request(url, function (error, response, body) {
+  request(url, (error, response, body) => {
     if (error) {
       res.sendStatus(500);
     }
-    res.json(body);
+    const { total, inputs, outputs } = JSON.parse(body);
+    const sanitisedData = {
+      total,
+      inputs,
+      outputs
+    };
+    res.json(sanitisedData);
   });
 });
 

@@ -28,7 +28,7 @@ class EntitySearchInput extends Component {
     this.debouncedSearch = _.debounce(function () {
       $.get(`http://localhost:3001/${this.state.address}`)
         .done(data => {
-          this.handleTransactionsReceived(JSON.parse(data));
+          this.handleTransactionsReceived(data);
         })
         .fail(data => {
           console.log(data);
