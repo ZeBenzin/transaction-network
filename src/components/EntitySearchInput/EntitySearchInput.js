@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import $ from 'jquery';
-import { setTransactions } from '../../actions/actionCreators';
+import { setTransactions } from '../../state/actions/actionCreators';
 
 class EntitySearchInput extends Component {
   render () {

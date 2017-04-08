@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import * as d3Graph from '../d3Graph/d3Graph';
-import './style.css';
+import './Graph.css';
 
 class Graph extends Component {
   constructor (props) {

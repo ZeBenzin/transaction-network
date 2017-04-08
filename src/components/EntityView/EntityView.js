@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Graph from '../Graph';
+import Graph from '../Graph/Graph';
 import sanitiseData from './sanitiseData';
 
 const { object } = React.PropTypes;

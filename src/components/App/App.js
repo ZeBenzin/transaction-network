@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import './App.css';
-import EntityView from '../EntityView/';
+import EntityView from '../EntityView/EntityView';
 import FetchDataButton from '../FetchDataButton/FetchDataButton';
 import EntitySearchInput from '../EntitySearchInput/EntitySearchInput';
-import store from '../../store/store';
+import store from '../../state/store/store';
 
 class App extends Component {
   render () {
