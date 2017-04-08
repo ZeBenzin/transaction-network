@@ -17,12 +17,14 @@ class FetchDataButton extends Component {
   }
 
   getEntityData () {
-    $.get('http://localhost:3001/').done((data) => {
-      this.handleTransactionsReceived(JSON.parse(data));
-    }).fail((data) => {
-      console.log(data);
-      console.error('Request resulted in an error');
-    });
+    $.get('http://localhost:3001/')
+      .done((data) => {
+        this.handleTransactionsReceived(JSON.parse(data));
+      })
+      .fail((data) => {
+        console.log(data);
+        console.error('Request resulted in an error');
+      });
   }
 }
 
