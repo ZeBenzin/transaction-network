@@ -1,4 +1,4 @@
-import { SET_TRANSACTIONS } from '../actions/actions';
+import { SET_TRANSACTIONS } from 'src/state/actions/actions';
 
 const DEFAULT_STATE = {
   transactions: {}

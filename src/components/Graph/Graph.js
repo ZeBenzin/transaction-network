@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
-import * as d3Graph from '../d3Graph/d3Graph';
-import './Graph.css';
+import * as d3Graph from 'src/components/d3Graph/d3Graph.js';
+import 'src/components/Graph/Graph.css';
 
 class Graph extends Component {
   constructor (props) {
