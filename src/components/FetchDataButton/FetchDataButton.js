@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { setTransactions } from '../../actions/actionCreators';
+import { setTransactions } from '../../state/actions/actionCreators';
 
 const { func } = React.PropTypes;
 
@@ -17,12 +17,14 @@ class FetchDataButton extends Component {
   }
 
   getEntityData () {
-    $.get('http://localhost:3001/').done((data) => {
-      this.handleTransactionsReceived(JSON.parse(data));
-    }).fail((data) => {
-      console.log(data);
-      console.error('Request resulted in an error');
-    });
+    $.get('http://localhost:3001/')
+      .done((data) => {
+        this.handleTransactionsReceived(JSON.parse(data));
+      })
+      .fail((data) => {
+        console.log(data);
+        console.error('Request resulted in an error');
+      });
   }
 }
 

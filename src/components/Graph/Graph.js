@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import * as d3Graph from '../d3Graph/d3Graph';
-import './style.css';
+import './Graph.css';
 
 class Graph extends Component {
   constructor (props) {
@@ -26,7 +26,6 @@ class Graph extends Component {
 
   shouldComponentUpdate (nextProps) {
     this.graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
-
     const d3Nodes = this.graph.selectAll('.node')
       .data(nextProps.nodes, node => node.key);
     d3Nodes.enter().append('g').call(d3Graph.enterNode);
