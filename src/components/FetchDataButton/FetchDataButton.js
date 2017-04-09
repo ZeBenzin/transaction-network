@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { setTransactions } from '../../state/actions/actionCreators';
+import { setTransactions } from 'src/state/actions/actionCreators';
 
 const { func } = React.PropTypes;
 
