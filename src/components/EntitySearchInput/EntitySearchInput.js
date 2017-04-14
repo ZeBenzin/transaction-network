@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import $ from 'jquery';
+import axios from 'axios';
 import { setTransactions } from 'src/state/actions/actionCreators';
 
 class EntitySearchInput extends Component {
@@ -26,11 +26,11 @@ class EntitySearchInput extends Component {
 
   componentWillMount () {
     this.debouncedSearch = _.debounce(function () {
-      $.get(`http://localhost:3001/${this.state.address}`)
-        .done(data => {
-          this.handleTransactionsReceived(data);
+      axios.get(`http://localhost:3001/${this.state.address}`)
+        .then(data => {
+          this.handleTransactionsReceived(data.data);
         })
-        .fail(data => {
+        .catch(data => {
           console.log(data);
           console.error('Request resulted in an error');
         });
