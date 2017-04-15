@@ -46,9 +46,11 @@ class Graph extends Component {
 
   render () {
     return (
-      <svg width={this.props.width} height={this.props.height}>
-        <g ref='graph' />
-      </svg>
+      <div>
+        <svg width={this.props.width} height={this.props.height}>
+          <g ref='graph' />
+        </svg>
+      </div>
     );
   }
 }
