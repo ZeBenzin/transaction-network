@@ -3,20 +3,49 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
 import { setTransactions } from 'src/state/actions/actionCreators';
+import './EntitySearchInput.css';
 
 class EntitySearchInput extends Component {
+  constructor () {
+    super();
+    this.onAddressSearch = this.onAddressSearch.bind(this);
+    this.onInputChanged = this.onInputChanged.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
+  }
+
   render () {
     return (
-      <input
-        type='text'
-        className='input__address-search'
-        onChange={this.onAddressInput.bind(this)}
-      />
+      <div className='entity-view__search'>
+        <input
+          type='text'
+          className='input__address-search-field'
+          onInput={this.onInputChanged}
+          onKeyDown={this.onKeyPress}
+          autoFocus
+          placeholder='Enter a wallet address'
+          spellCheck={false}
+        />
+        <input
+          type='submit'
+          value='&#xf002;'
+          className='input__address-search-button'
+          onClick={this.onAddressSearch}
+        />
+      </div>
     );
   }
 
-  onAddressInput (e) {
+  onInputChanged (e) {
     this.setState({ address: e.target.value });
+  }
+
+  onKeyPress (e) {
+    if (e.keyCode === 13) {
+      this.onAddressSearch();
+    }
+  }
+
+  onAddressSearch () {
     this.debouncedSearch();
   }
 

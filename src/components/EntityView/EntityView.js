@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Graph from 'src/components/Graph/Graph';
 import sanitiseData from 'src/components/EntityView/sanitiseData';
+import EntitySearchInput from 'src/components/EntitySearchInput/EntitySearchInput';
+import './EntityView.css';
 
 const { object } = React.PropTypes;
 
@@ -26,7 +28,8 @@ class EntityView extends Component {
     };
 
     return (
-      <div>
+      <div className='entity-view'>
+        <EntitySearchInput />
         <Graph {...params} />
       </div>
     );
