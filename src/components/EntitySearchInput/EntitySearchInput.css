@@ -1,6 +1,26 @@
+.entity-view__search-wrapper {
+  display: inline-block
+}
+
 .entity-view__search {
-  transform: translateY(30px);
   display: inline-flex;
+}
+
+.entity-view__search--random {
+  display: flex;
+  padding-top: 10px;
+  padding-left: 3px;
+  font-size: 12px;
+  color: #757373;
+}
+
+.entity-view__search--random-link {
+  color: #1f303e;
+  text-decoration: none;
+}
+
+.entity-view__search--random-link:hover {
+  border-bottom: 2px solid #1f303e;
 }
 
 .input__address-search-field {
