@@ -1,7 +1,7 @@
 import { SET_TRANSACTIONS } from 'src/state/actions/actions';
 
 const DEFAULT_STATE = {
-  transactions: {}
+  transactions: []
 };
 
 const setTransactions = (state, action) => {

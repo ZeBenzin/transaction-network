@@ -1,55 +1,59 @@
 import _ from 'lodash';
 
-const sanitiseInputs = (transactions, links) => {
-  const sanitisedInputs = [];
-  _.each(transactions.inputs, (input, index) => {
-    const node = {
+const getSourceNode = (nodes, sourceNodeKey, index) => {
+  const sourceNodeIndex = _.findIndex(nodes, o => o.key === sourceNodeKey);
+  if (sourceNodeIndex === -1) {
+    nodes.push({
       index,
-      key: input.addresses[0],
+      key: sourceNodeKey,
       x: 500,
       y: 400,
       size: 5,
       weight: 3
-    };
-    sanitisedInputs.push(node);
-    links.push({
-      key: node.key,
-      size: 3,
-      source: node,
-      value: input.output_value
     });
-  });
-  return sanitisedInputs;
+    return nodes.length - 1;
+  }
+  return sourceNodeIndex;
 };
 
-const sanitiseOutputs = (transactions, links) => {
-  const sanitisedOutputs = [];
-  _.each(transactions.outputs, (output, index) => {
-    sanitisedOutputs.push({
+const getTargetNode = (nodes, targetNodeKey, index) => {
+  const targetNodeIndex = _.findIndex(nodes, o => o.key === targetNodeKey);
+  if (targetNodeIndex === -1) {
+    nodes.push({
       index,
-      key: output.addresses[0],
+      key: targetNodeKey,
       x: 500,
       y: 400,
-      size: 5,
+      size: 10,
       weight: 3
     });
+    return nodes.length - 1;
+  }
+  return targetNodeIndex;
+};
+
+const sanitiseTransactions = (transactions) => {
+  const links = [];
+  const nodes = [];
+  _.each(transactions, (tx, index) => {
+    const sourceNodeIndex = getSourceNode(nodes, tx.inputs[0].prev_out.addr, index);
+    const targetNodeIndex = getTargetNode(nodes, tx.outputs[0].addr, index);
+    links.push({
+      key: index,
+      size: 3,
+      source: nodes[sourceNodeIndex],
+      target: nodes[targetNodeIndex],
+      value: tx.total
+    });
   });
-  _.each(links, (link) => {
-    link.target = sanitisedOutputs[0];
-    link.key = `${link.key},${sanitisedOutputs[0].key}`;
-    link.size = (link.value / transactions.total * 100) / 10;
-  });
-  return sanitisedOutputs;
+  return {
+    nodes,
+    links
+  };
 };
 
 const sanitiseData = (transactions) => {
-  const links = [];
-  const sanitisedInputs = sanitiseInputs(transactions, links);
-  const sanitisedOutputs = sanitiseOutputs(transactions, links);
-  const nodes = [
-    ...sanitisedInputs,
-    ...sanitisedOutputs
-  ];
+  const { nodes, links } = sanitiseTransactions(transactions);
   return {
     nodes,
     links

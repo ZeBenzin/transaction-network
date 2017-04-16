@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import Graph from 'src/components/Graph/Graph';
 import sanitiseData from 'src/components/EntityView/sanitiseData';
 import EntitySearchInput from 'src/components/EntitySearchInput/EntitySearchInput';
-import './EntityView.css';
+import 'src/components/EntityView/EntityView.css';
 
-const { object } = React.PropTypes;
+const { array } = React.PropTypes;
 
 class EntityView extends Component {
   constructor () {
@@ -37,7 +37,7 @@ class EntityView extends Component {
 }
 
 EntityView.propTypes = {
-  transactions: object
+  transactions: array
 };
 
 const mapStateToProps = (state) => {

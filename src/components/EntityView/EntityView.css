@@ -1,6 +1,6 @@
 .entity-view {
   text-align: center;
-  transform: translateY(60px);
+  top: 100px;
+  position: relative;
   background-color: #fff;
-  display: inline-block;
 }

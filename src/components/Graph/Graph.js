@@ -14,7 +14,7 @@ class Graph extends Component {
     this.force = d3.layout.force()
       .charge(-300)
       .size([props.width, props.height])
-      .linkDistance(50);
+      .linkDistance(100);
   }
 
   componentDidMount () {
@@ -46,11 +46,9 @@ class Graph extends Component {
 
   render () {
     return (
-      <div>
-        <svg width={this.props.width} height={this.props.height}>
-          <g ref='graph' />
-        </svg>
-      </div>
+      <svg width={this.props.width} height={this.props.height}>
+        <g ref='graph' />
+      </svg>
     );
   }
 }

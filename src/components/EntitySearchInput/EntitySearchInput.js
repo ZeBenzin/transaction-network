@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
 import { setTransactions } from 'src/state/actions/actionCreators';
-import './EntitySearchInput.css';
+import 'src/components/EntitySearchInput/EntitySearchInput.css';
 
 class EntitySearchInput extends Component {
   constructor () {
@@ -15,22 +15,27 @@ class EntitySearchInput extends Component {
 
   render () {
     return (
-      <div className='entity-view__search'>
-        <input
-          type='text'
-          className='input__address-search-field'
-          onInput={this.onInputChanged}
-          onKeyDown={this.onKeyPress}
-          autoFocus
-          placeholder='Enter a wallet address'
-          spellCheck={false}
-        />
-        <input
-          type='submit'
-          value='&#xf002;'
-          className='input__address-search-button'
-          onClick={this.onAddressSearch}
-        />
+      <div className='entity-view__search-wrapper'>
+        <div className='entity-view__search'>
+          <input
+            type='text'
+            className='input__address-search-field'
+            onInput={this.onInputChanged}
+            onKeyDown={this.onKeyPress}
+            autoFocus
+            placeholder='Enter a wallet address'
+            spellCheck={false}
+          />
+          <input
+            type='submit'
+            value='&#xf002;'
+            className='input__address-search-button'
+            onClick={this.onAddressSearch}
+          />
+        </div>
+        <div className='entity-view__search--random'>
+          <span>Select a random <a href='javascript:void(0);' className='entity-view__search--random-link'> address</a> ...</span>
+        </div>
       </div>
     );
   }
