@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
 import { setTransactions } from 'src/state/actions/actionCreators';
-import 'src/components/EntitySearchInput/EntitySearchInput.css';
+import 'src/components/EntitySearchInput/EntitySearchInput.scss';
 
 class EntitySearchInput extends Component {
   constructor () {
