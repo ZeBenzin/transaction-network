@@ -107,7 +107,7 @@ module.exports = {
         exclude: [
           /\.html$/,
           /\.(js|jsx)$/,
-          /\.css$/,
+          /\.s?css$/,
           /\.json$/,
           /\.svg$/
         ],
@@ -137,10 +137,10 @@ module.exports = {
       // use the "style" loader inside the async code so CSS from them won't be
       // in the main CSS file.
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css?importLoaders=1!postcss',
+          'css?importLoaders=1!sass!postcss',
           extractTextPluginOptions
         )
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import * as d3Graph from 'src/components/d3Graph/d3Graph.js';
-import 'src/components/Graph/Graph.css';
+import 'src/components/Graph/Graph.scss';
 
 class Graph extends Component {
   constructor (props) {
@@ -46,9 +46,11 @@ class Graph extends Component {
 
   render () {
     return (
-      <svg width={this.props.width} height={this.props.height}>
-        <g ref='graph' />
-      </svg>
+      <div>
+        <svg width={this.props.width} height={this.props.height}>
+          <g ref='graph' />
+        </svg>
+      </div>
     );
   }
 }

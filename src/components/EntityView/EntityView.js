@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Graph from 'src/components/Graph/Graph';
 import sanitiseData from 'src/components/EntityView/sanitiseData';
 import EntitySearchInput from 'src/components/EntitySearchInput/EntitySearchInput';
-import 'src/components/EntityView/EntityView.css';
+import 'src/components/EntityView/EntityView.scss';
 
 const { array } = React.PropTypes;
 

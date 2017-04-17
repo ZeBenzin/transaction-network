@@ -17,10 +17,10 @@
 .entity-view__search--random-link {
   color: #1f303e;
   text-decoration: none;
-}
 
-.entity-view__search--random-link:hover {
-  border-bottom: 2px solid #1f303e;
+  &:hover {
+    border-bottom: 2px solid #1f303e;
+  }
 }
 
 .input__address-search-field {
@@ -32,10 +32,10 @@
   border: 2px solid #d6d5d5;
   border-right: 0;
   border-radius: 5px 0 0 5px;
-}
 
-.input__address-search-field:focus {
-  border-color: rgba(39, 76, 104, 0.709804);
+  &:focus {
+    border-color: rgba(39, 76, 104, 0.709804);
+  }
 }
 
 .input__address-search-button {
@@ -48,8 +48,8 @@
   font-family: FontAwesome;
   color: #fff;
   outline: none;
-}
 
-.input__address-search-button:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
 }
