@@ -1,0 +1,58 @@
+.header {
+  width: 100%;
+  height: 180px;
+  background-color: #4f6271;
+  box-shadow: 0 3px 2px 0px rgba(0,0,0,0.2);
+}
+
+.header__menu {
+  height: 15px;
+  width: 25px;
+  padding: 15px;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.header__menu-bar {
+  margin-bottom: 4px;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 100%;
+  height: 3px;
+}
+
+.header__links {
+  float: right;
+  margin: 12px 10px 0 0;
+}
+
+.header__links-github:before {
+  color: #fff;
+  font-family: FontAwesome;
+  content: '\f09b';
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.header__links-twitter:before {
+  color: #fff;
+  font-family: FontAwesome;
+  content: '\f099';
+  font-size: 30px;
+}
+
+.header__links-github:hover {
+  cursor: pointer;
+}
+
+.header__logo {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.header__logo img {
+  height: 85px;
+}
