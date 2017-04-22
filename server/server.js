@@ -8,20 +8,21 @@ const app = express();
 app.get('/:address', cors(), (req, res) => {
   const url = `https://blockchain.info/address/${req.params.address}?format=json`;
   request(url, (error, response, body) => {
-    if (error) {
+    if (error || response.statusCode === 500) {
       res.sendStatus(500);
-    }
-    const transactions = [];
-    _.map(JSON.parse(body).txs, ({ result, inputs, out, block_height, hash }) => {
-      transactions.push({
-        total: result,
-        inputs,
-        outputs: out,
-        block_height,
-        hash
+    } else {
+      const transactions = [];
+      _.map(JSON.parse(body).txs, ({ result, inputs, out, block_height, hash }) => {
+        transactions.push({
+          total: result,
+          inputs,
+          outputs: out,
+          block_height,
+          hash
+        });
       });
-    });
-    res.send(transactions);
+      res.send(transactions);
+    }
   });
 });
 

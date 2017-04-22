@@ -1,6 +1,15 @@
 .entity-view {
   text-align: center;
-  top: 100px;
+  top: 65px;
   position: relative;
   background-color: #fff;
+}
+
+.entity-view__graph {
+  display: inline-block;
+}
+
+.entity-view__timeline {
+  float: left;
+  padding: 10px 0;
 }

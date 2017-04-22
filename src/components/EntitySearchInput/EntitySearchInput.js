@@ -13,33 +13,6 @@ class EntitySearchInput extends Component {
     this.onKeyPress = this.onKeyPress.bind(this);
   }
 
-  render () {
-    return (
-      <div className='entity-view__search-wrapper'>
-        <div className='entity-view__search'>
-          <input
-            type='text'
-            className='input__address-search-field'
-            onInput={this.onInputChanged}
-            onKeyDown={this.onKeyPress}
-            autoFocus
-            placeholder='Enter a wallet address'
-            spellCheck={false}
-          />
-          <input
-            type='submit'
-            value='&#xf002;'
-            className='input__address-search-button'
-            onClick={this.onAddressSearch}
-          />
-        </div>
-        <div className='entity-view__search--random'>
-          <span>Select a random <a href='javascript:void(0);' className='entity-view__search--random-link'> address</a> ...</span>
-        </div>
-      </div>
-    );
-  }
-
   onInputChanged (e) {
     this.setState({ address: e.target.value });
   }
@@ -54,8 +27,16 @@ class EntitySearchInput extends Component {
     this.debouncedSearch();
   }
 
-  handleTransactionsReceived (transactions) {
-    this.props.dispatchSetTransactions(transactions);
+  handleTransactionsReceived (txs) {
+    const bucketedTxs = {};
+    _.each(txs, tx => {
+      if (!_.has(bucketedTxs, tx.block_height)) {
+        bucketedTxs[tx.block_height] = [];
+      }
+      bucketedTxs[tx.block_height].push(tx);
+    });
+    const visibleTx = bucketedTxs[Object.keys(bucketedTxs)[0]];
+    this.props.dispatchSetTransactions(bucketedTxs, visibleTx);
   }
 
   componentWillMount () {
@@ -70,12 +51,46 @@ class EntitySearchInput extends Component {
         });
     }, 500);
   }
+
+  render () {
+    return (
+      <div className='entity-view__search-wrapper'>
+        <div style={{ display: 'inline-block' }}>
+          <div className='entity-view__search'>
+            <input
+              type='text'
+              className='input__address-search-field'
+              onInput={this.onInputChanged}
+              onKeyDown={this.onKeyPress}
+              autoFocus
+              placeholder='Enter a wallet address'
+              spellCheck={false}
+            />
+            <input
+              type='submit'
+              value='&#xf002;'
+              className='input__address-search-button'
+              onClick={this.onAddressSearch}
+            />
+          </div>
+          <div className='entity-view__search--random'>
+            <span>
+              Select a random <a
+                href='javascript:void(0);'
+                className='entity-view__search--random-link'>address
+              </a> ...
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatchSetTransactions (transactions) {
-      dispatch(setTransactions(transactions));
+    dispatchSetTransactions (transactions, visibleTransaction) {
+      dispatch(setTransactions(transactions, visibleTransaction));
     }
   };
 };
