@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import Graph from 'src/components/Graph/Graph';
 import sanitiseData from 'src/components/EntityView/sanitiseData';
 import EntitySearchInput from 'src/components/EntitySearchInput/EntitySearchInput';
+import BlockChainIcon from 'src/components/BlockChainIcon/BlockChainIcon';
 import 'src/components/EntityView/EntityView.scss';
 
-const { array } = React.PropTypes;
+const { arrayOf, array, object } = React.PropTypes;
 
 class EntityView extends Component {
   constructor () {
@@ -19,7 +20,7 @@ class EntityView extends Component {
   }
 
   render () {
-    const { nodes, links } = sanitiseData(this.props.transactions);
+    const { nodes, links } = sanitiseData(this.props.visibleTx);
     const params = {
       nodes,
       links,
@@ -30,18 +31,33 @@ class EntityView extends Component {
     return (
       <div className='entity-view'>
         <EntitySearchInput />
-        <Graph {...params} />
+        <div className='entity-view__graph'>
+          <Graph {...params} />
+          <div className='entity-view__timeline'>
+            {this.props.blocks.map((block, index) => {
+              return <BlockChainIcon
+                key={block}
+                blockHeight={block}
+                isCurrentTx={this.props.visibleTx[0].block_height === parseInt(block)}
+              />;
+            }, this)}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 EntityView.propTypes = {
-  transactions: array
+  visibleTx: arrayOf(object),
+  blocks: array
 };
 
 const mapStateToProps = (state) => {
-  return { transactions: state.transactions };
+  return {
+    visibleTx: state.visibleTransaction,
+    blocks: Object.keys(state.transactions)
+  };
 };
 
 export default connect(mapStateToProps)(EntityView);
