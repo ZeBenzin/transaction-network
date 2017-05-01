@@ -41,7 +41,7 @@ class EntitySearchInput extends Component {
 
   componentWillMount () {
     this.debouncedSearch = _.debounce(function () {
-      axios.get(`http://localhost:3001/${this.state.address}`)
+      axios.get(`http://localhost:3001/api/address/${this.state.address}`)
         .then(data => {
           this.handleTransactionsReceived(data.data);
         })

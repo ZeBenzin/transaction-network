@@ -1,29 +1,19 @@
 const express = require('express');
-const request = require('request');
-const cors = require('cors');
-const _ = require('lodash');
-
 const app = express();
+const api = require('./api/api');
+const auth = require('./auth/routes');
+const config = require('./config/config');
 
-app.get('/:address', cors(), (req, res) => {
-  const url = `https://blockchain.info/address/${req.params.address}?format=json`;
-  request(url, (error, response, body) => {
-    if (error || response.statusCode === 500) {
-      res.sendStatus(500);
-    } else {
-      const transactions = [];
-      _.map(JSON.parse(body).txs, ({ result, inputs, out, block_height, hash }) => {
-        transactions.push({
-          total: result,
-          inputs,
-          outputs: out,
-          block_height,
-          hash
-        });
-      });
-      res.send(transactions);
-    }
-  });
+require('mongoose').connect(config.db.url);
+require('./middleware/middleware')(app);
+
+app.use('/api', api);
+app.use('/auth', auth);
+
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('Invalid token');
+  }
 });
 
-app.listen(3001);
+module.exports = app;
