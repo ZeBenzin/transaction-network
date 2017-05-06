@@ -26,7 +26,7 @@ UserSchema.methods = {
     if (!plainTextPword) {
       return '';
     } else {
-      var salt = bcrypt.genSaltSync(10);
+      const salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(plainTextPword, salt);
     }
   }

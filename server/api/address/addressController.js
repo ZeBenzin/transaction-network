@@ -1,8 +1,7 @@
 const request = require('request');
-const cors = require('cors');
 const _ = require('lodash');
 
-exports.get = (cors(), (req, res) => {
+exports.get = (req, res) => {
   const url = `https://blockchain.info/address/${req.params.addressHash}?format=json`;
   request(url, (error, response, body) => {
     if (error || response.statusCode === 500) {
@@ -21,4 +20,4 @@ exports.get = (cors(), (req, res) => {
       res.send(transactions);
     }
   });
-});
+};
