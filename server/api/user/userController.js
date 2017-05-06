@@ -1,22 +1,28 @@
-const User = require('./UserModel');
+const User = require('./userModel');
+const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 exports.params = (req, res, next, id) => {
   User.findById(id)
-    .then((user) => {
+    .then(user => {
       if (!user) {
         next(new Error(`No user with id ${id}`));
       } else {
         req.user = user;
         next();
       }
-    }, (err) => next(err));
+    })
+    .catch((err) => next(err));
 };
 
 exports.post = (req, res, next) => {
   const newUser = req.body;
   User.create(newUser)
-    .then((user) => res.json(user),
-  (err) => next(err));
+    .then(user => {
+      res.json(user);
+    }).catch(err => {
+      next(err);
+    });
 };
 
 exports.delete = (req, res, next) => {

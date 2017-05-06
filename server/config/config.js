@@ -4,7 +4,9 @@ const config = {
   dev: 'development',
   preprod: 'preproduction',
   prod: 'production',
-  port: process.env.PORT || 3001
+  port: process.env.PORT || 3001,
+  expireTime: 14400,
+  secrets: { jwt: process.env.JWT }
 };
 
 process.env.NODE_ENV = process.env.NODE_ENV || config.dev;

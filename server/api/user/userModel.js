@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -12,5 +13,23 @@ const UserSchema = new mongoose.Schema({
   },
   addresses: [String]
 });
+
+UserSchema.pre('save', function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = this.encryptPassword(this.password);
+  next();
+});
+
+UserSchema.methods = {
+  authenticate: (plainTextPword) => (bcrypt.compareSync(plainTextPword, this.password)),
+  encryptPassword: (plainTextPword) => {
+    if (!plainTextPword) {
+      return '';
+    } else {
+      var salt = bcrypt.genSaltSync(10);
+      return bcrypt.hashSync(plainTextPword, salt);
+    }
+  }
+};
 
 module.exports = mongoose.model('user', UserSchema);
