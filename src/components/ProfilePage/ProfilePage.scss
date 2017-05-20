@@ -1,0 +1,30 @@
+.profile__view {
+  width: 52%;
+  background-color: #fff;
+  height: 700px;
+  margin: 30px auto;
+  border-radius: 3px;
+}
+
+.profile__view-tabs > li {
+  list-style: none;
+  display: list-item;
+  padding: 16px;
+  float: left;
+  color: #4f6271;
+
+  &:hover {
+    border-bottom: 1px solid #4f6271;
+  }
+}
+
+.profile__view-tab-item {
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile__view-tabs {
+  border-bottom: 1px solid #ececec;
+  overflow: hidden;
+  padding-left: 0;
+}
