@@ -10,13 +10,6 @@ class Graph extends Component {
     this.configureForce(props);
   }
 
-  configureForce (props) {
-    this.force = d3.layout.force()
-      .charge(-300)
-      .size([props.width, props.height])
-      .linkDistance(100);
-  }
-
   componentDidMount () {
     this.graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
     this.force.on('tick', () => {
@@ -42,6 +35,13 @@ class Graph extends Component {
       .links(nextProps.links);
     this.force.start();
     return false;
+  }
+
+  configureForce (props) {
+    this.force = d3.layout.force()
+    .charge(-300)
+    .size([props.width, props.height])
+    .linkDistance(100);
   }
 
   render () {

@@ -13,6 +13,19 @@ class EntitySearchInput extends Component {
     this.onKeyPress = this.onKeyPress.bind(this);
   }
 
+  componentWillMount () {
+    this.debouncedSearch = _.debounce(function () {
+      axios.get(`http://localhost:3001/api/address/${this.state.address}`)
+        .then(data => {
+          this.handleTransactionsReceived(data.data);
+        })
+        .catch(data => {
+          console.log(data);
+          console.error('Request resulted in an error');
+        });
+    }, 500);
+  }
+
   onInputChanged (e) {
     this.setState({ address: e.target.value });
   }
@@ -37,19 +50,6 @@ class EntitySearchInput extends Component {
     });
     const visibleTx = bucketedTxs[Object.keys(bucketedTxs)[0]];
     this.props.dispatchSetTransactions(bucketedTxs, visibleTx);
-  }
-
-  componentWillMount () {
-    this.debouncedSearch = _.debounce(function () {
-      axios.get(`http://localhost:3001/api/address/${this.state.address}`)
-        .then(data => {
-          this.handleTransactionsReceived(data.data);
-        })
-        .catch(data => {
-          console.log(data);
-          console.error('Request resulted in an error');
-        });
-    }, 500);
   }
 
   render () {
