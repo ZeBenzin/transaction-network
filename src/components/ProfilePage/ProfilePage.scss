@@ -12,9 +12,11 @@
   padding: 16px;
   float: left;
   color: #4f6271;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
 
   &:hover {
     border-bottom: 1px solid #4f6271;
+    cursor: pointer;
   }
 }
 
@@ -27,4 +29,9 @@
   border-bottom: 1px solid #ececec;
   overflow: hidden;
   padding-left: 0;
+}
+
+.profile__view-addresses {
+  list-style: none;
+  display: inline-block;
 }
