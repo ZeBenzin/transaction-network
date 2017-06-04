@@ -1,0 +1,23 @@
+.signatures-view {
+  top: 20%;
+  position: absolute;
+  width: 100%;
+}
+
+.signatures-view__table {
+  width: 77%;
+  text-align: left;
+  border-radius: 3px;
+  border: 2px solid #b1b1b1;
+  display: inline-table;
+}
+
+td {
+  padding: 10px;
+  color: #668094;
+  border-bottom: 1px solid #b5b5b5;
+}
+
+tr:last-child > td {
+  border-bottom: 0;
+}

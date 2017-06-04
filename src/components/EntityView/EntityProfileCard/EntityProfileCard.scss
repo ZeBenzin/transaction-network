@@ -1,0 +1,233 @@
+.entity-profile-card {
+  display: none;
+  text-align: center;
+  height: 700px;
+}
+
+.entity-profile-card.active {
+  display: block;
+  transform: translateY(40px);
+}
+
+.entity-profile-card__content {
+  width: 50%;
+  background-color: #fff;
+  height: 100%;
+  margin: 0 auto;
+  box-shadow: 0 0 5px 2px #c5c5c5;
+  border-radius: 3px;
+}
+
+.entity-profile__view {
+  background-color: #fff;
+  margin: 30px auto;
+  border-radius: 3px;
+  height: 100%;
+  position: relative;
+}
+
+.entity-profile__view-tabs > li {
+  list-style: none;
+  display: list-item;
+  padding: 16px;
+  float: left;
+  color: #4f6271;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+
+  &:hover {
+    border-bottom: 2px solid #4f6271;
+    cursor: pointer;
+  }
+}
+
+.entity-profile__view-tabs > li.selected {
+  border-bottom: 2px solid #4f6271;
+}
+
+.entity-profile__view-tab-item {
+  text-decoration: none;
+  color: inherit;
+}
+
+.entity-profile__view-tabs {
+  border-bottom: 1px solid #ececec;
+  overflow: hidden;
+  padding-left: 0;
+  font-weight: 600;
+}
+
+.entity-profile__view-addresses {
+  list-style: none;
+  display: inline-block;
+}
+
+.entity-profile__header-trust {
+  float: right;
+}
+
+.entity-profile__header {
+  padding: 0 5%;
+  overflow: hidden;
+}
+
+.entity-profile__header > h1 {
+  float: left;
+  margin: 0;
+}
+
+.entity-profile__header-trust:before {
+  font-family: FontAwesome;
+  content: '\f058';
+  color: #9ebd55;
+  font-size: 3.5rem;
+}
+
+.entity-profile__actions {
+  padding: 0 5%;
+  text-align: left;
+  margin-top: 30px;
+}
+
+.entity-profile__actions-trust {
+  -webkit-appearance: none;
+  outline: none;
+  border-radius: 2px;
+  border: 0;
+  font-size: 14px;
+  height: 30px;
+  background-color: rgba(39, 76, 104, 0.71);
+  color: #fff;
+  box-shadow: 0 0 2px 1px #c7c7c7;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.entity-profile__stats {
+  display: block;
+  padding: 0 5%;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.entity-profile__stats-headers {
+  list-style: none;
+  float: left;
+  display: inline-block;
+  margin: 0;
+  padding: 0 6px;
+  border-radius: 3px;
+  border: 2px solid #b1b1b1;
+}
+
+.entity-profile__stats-headers > li {
+  padding: 20px;
+  border-bottom: 1px solid #afafaf;
+}
+
+.entity-profile__stats-trust-icon:after {
+  font-family: FontAwesome;
+  content: '\f2b5';
+  font-size: 1.5rem;
+  color: #668094;
+}
+
+.entity-profile__stats-honesty-icon:after {
+  font-family: FontAwesome;
+  content: '\f21b';
+  font-size: 1.5rem;
+  color: #668094;
+}
+
+.entity-profile__stats-disputes-icon:after {
+  font-family: FontAwesome;
+  content: '\f235';
+  font-size: 1.5rem;
+  color: #668094;
+}
+
+.entity-profile__stats-headers > li:last-child {
+  border: 0;
+}
+
+.entity-profile__stats-bars {
+  display: inline-block;
+  float: left;
+}
+
+.entity-profile__stats-colored-bars {
+  display: inline-block;
+  margin-top: 25px;
+  float: right;
+}
+
+.entity-profile__stats-bar {
+  width: 180px;
+  height: 35px;
+  background-color: rgb(230, 230, 230);
+  display: block;
+  margin-bottom: 25px;
+  border-radius: 0 3px 3px 0;
+}
+
+.entity-profile__resolve-address {
+  -webkit-appearance: none;
+  background-color: #668094;
+  color: #fff;
+  height: 25px;
+  border-radius: 3px;
+  border: 0;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.entity-profile__stats-addresses > ul > li {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #b5b5b5;
+  font-size: 0.85rem;
+  color: #668094;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #bcbcbc;
+  }
+}
+
+.entity-profile__stats-addresses > ul {
+  list-style: none;
+  padding: 0;
+  height: 83%;
+
+}
+
+.entity-profile__stats-bar.trust {
+  width: 180px;
+  background-color: #8bb143
+}
+
+.entity-profile__stats-bar.honesty {
+  width: 175px;
+  background-color: #8bb143;
+}
+
+.entity-profile__stats-bar.disputes {
+  width: 90px;
+  background-color: #c13535;
+}
+
+.entity-profile__stats-addresses {
+  display: inline-block;
+  float: right;
+  height: 400px;
+  width: 250px;
+  border-radius: 3px;
+  border: 2px solid #b1b1b1;
+  text-align: right;
+  padding: 0 10px;
+}

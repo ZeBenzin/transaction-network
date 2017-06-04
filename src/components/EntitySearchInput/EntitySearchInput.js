@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
 import { setTransactions } from 'src/state/actions/actionCreators';
+import EntityResultItem from 'src/components/EntityResultItem/EntityResultItem';
 import 'src/components/EntitySearchInput/EntitySearchInput.scss';
 
 class EntitySearchInput extends Component {
@@ -11,6 +12,11 @@ class EntitySearchInput extends Component {
     this.onAddressSearch = this.onAddressSearch.bind(this);
     this.onInputChanged = this.onInputChanged.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+    this.onEntitySelected = this.onEntitySelected.bind(this);
+    this.state = {
+      isInitialized: false,
+      isResultShown: false
+    };
   }
 
   componentWillMount () {
@@ -26,8 +32,19 @@ class EntitySearchInput extends Component {
     }, 500);
   }
 
+  onEntitySelected () {
+    this.props.showProfileCard();
+    this.setState({
+      isResultShown: false
+    });
+  }
+
   onInputChanged (e) {
-    this.setState({ address: e.target.value });
+    this.setState({
+      isInitialized: true,
+      isResultShown: true,
+      address: e.target.value
+    });
   }
 
   onKeyPress (e) {
@@ -54,7 +71,7 @@ class EntitySearchInput extends Component {
 
   render () {
     return (
-      <div className='entity-view__search-wrapper'>
+      <div className={`entity-view__search-wrapper ${this.state.isInitialized ? 'initialized' : ''}`}>
         <div style={{ display: 'inline-block' }}>
           <div className='entity-view__search'>
             <input
@@ -63,7 +80,7 @@ class EntitySearchInput extends Component {
               onInput={this.onInputChanged}
               onKeyDown={this.onKeyPress}
               autoFocus
-              placeholder='Enter a wallet address'
+              placeholder='Search...'
               spellCheck={false}
             />
             <input
@@ -73,13 +90,22 @@ class EntitySearchInput extends Component {
               onClick={this.onAddressSearch}
             />
           </div>
-          <div className='entity-view__search--random'>
-            <span>
-              Select a random <a
-                href='javascript:void(0);'
-                className='entity-view__search--random-link'>address
-              </a> ...
-            </span>
+          <div className={`entity-view__results-list ${this.state.isResultShown ? 'visible' : ''}`}>
+            <div
+              className='entity-view__result-item'
+              onClick={this.onEntitySelected}
+            >
+              <EntityResultItem />
+            </div>
+            <div className='entity-view__result-item'>
+              <EntityResultItem />
+            </div>
+            <div className='entity-view__result-item'>
+              <EntityResultItem />
+            </div>
+            <div className='entity-view__result-item'>
+              <EntityResultItem />
+            </div>
           </div>
         </div>
       </div>

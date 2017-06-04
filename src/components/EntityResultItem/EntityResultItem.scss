@@ -1,0 +1,90 @@
+.entity-result-item__left {
+  float: left;
+  display: inline-block;
+}
+
+.entity-result-item__left-name {
+  margin: 0;
+  text-align: left;
+}
+
+.entity-result-item__left-status {
+  text-align: left;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.entity-result-item__left-status-rate:before {
+  font-family: FontAwesome;
+  content: '\f235';
+  font-size: 1.5rem;
+  color: #668094;
+}
+
+.entity-result-item__right {
+  float: right;
+  display: inline-block;
+}
+
+.entity-result-item__right-trust:before {
+  font-family: FontAwesome;
+  content: '\f058';
+  color: #9ebd55;
+  font-size: 2.4rem;
+}
+
+.entity-result-item__mini-stats {
+  list-style: none;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0;
+  padding: 3px 0;
+  border-radius: 3px;
+  border: 2px solid #b1b1b1;
+}
+
+.entity-result-item__mini-stats > li {
+  display: list-item;
+  float: left;
+  border-right: 1px solid grey;
+  padding: 0 10px;
+}
+
+.entity-result-item__mini-stats > .trust:before {
+  font-family: FontAwesome;
+  content: '\f2b5';
+  color: #5f798d;
+  font-size: 1rem;
+}
+
+.entity-result-item__mini-stats > .honesty:before {
+  font-family: FontAwesome;
+  content: '\f21b';
+  color: #5f798d;
+  font-size: 1rem;
+}
+
+.entity-result-item__mini-stats > .disputes:before {
+  font-family: FontAwesome;
+  content: '\f235';
+  color: #5f798d;
+  font-size: 1rem;
+}
+
+.entity-result-item__stats-colored-bars {
+  overflow: hidden;
+  text-align: center;
+  padding-left: 15px;
+}
+
+.entity-result-item__stats-bar {
+  height: 21px;
+  width: 18px;
+  background-color: green;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.entity-result-item__mini-stats > li:last-child {
+  border: 0;
+}

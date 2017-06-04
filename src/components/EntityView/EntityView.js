@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Graph from 'src/components/Graph/Graph';
-import sanitiseData from 'src/components/EntityView/sanitiseData';
 import EntitySearchInput from 'src/components/EntitySearchInput/EntitySearchInput';
-import BlockChainIcon from 'src/components/BlockChainIcon/BlockChainIcon';
+import EntityProfileCard from 'src/components/EntityView/EntityProfileCard/EntityProfileCard';
 import 'src/components/EntityView/EntityView.scss';
 
 const { arrayOf, array, object } = React.PropTypes;
@@ -15,34 +13,23 @@ class EntityView extends Component {
       nodes: [],
       links: [],
       width: 960,
-      height: 500
+      height: 500,
+      isCardVisible: false
     };
+    this.showProfileCard = this.showProfileCard.bind(this);
+  }
+
+  showProfileCard () {
+    this.setState({
+      isCardVisible: true
+    });
   }
 
   render () {
-    const { nodes, links } = sanitiseData(this.props.visibleTx);
-    const params = {
-      nodes,
-      links,
-      width: this.state.width,
-      height: this.state.height
-    };
-
     return (
       <div className='entity-view'>
-        <EntitySearchInput />
-        <div className='entity-view__graph'>
-          <Graph {...params} />
-          <div className='entity-view__timeline'>
-            {this.props.blocks.map((block, index) => {
-              return <BlockChainIcon
-                key={block}
-                blockHeight={block}
-                isCurrentTx={this.props.visibleTx[0].block_height === parseInt(block)}
-              />;
-            }, this)}
-          </div>
-        </div>
+        <EntitySearchInput showProfileCard={this.showProfileCard} />
+        <EntityProfileCard isCardVisible={this.state.isCardVisible} />
       </div>
     );
   }
