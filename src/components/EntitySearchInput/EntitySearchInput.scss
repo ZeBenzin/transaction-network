@@ -2,6 +2,45 @@
   display: inline-flex;
 }
 
+.entity-view__search-wrapper {
+  text-align: center;
+  transform: translateY(40px);
+  top: 35%;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.entity-view__search-wrapper.initialized {
+  top: 1%;
+}
+
+.entity-view__results-list {
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 450px;
+  border: 2px solid #d6d5d5;
+  display: none;
+}
+
+.entity-view__results-list.visible {
+  display: block;
+  position: absolute;
+}
+
+.entity-view__result-item {
+  border-bottom: 1px solid rgb(230, 230, 230);
+  padding: 9px 25px;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(95, 121, 141, 0.2);
+  }
+}
+
 .entity-view__search--random {
   display: flex;
   padding-top: 10px;
@@ -22,7 +61,7 @@
 .input__address-search-field {
   font-size:14px;
   font-family: inherit;
-  width: 530px;
+  width: 430px;
   padding: 8px 10px;
   outline: none;
   color: #757373;
