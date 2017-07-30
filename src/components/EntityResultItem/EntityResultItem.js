@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import 'src/components/EntityResultItem/EntityResultItem.scss';
 
 class EntityResultItem extends Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.onEntitySelected = this.onEntitySelected.bind(this);
   }
 
@@ -15,7 +15,7 @@ class EntityResultItem extends Component {
     return (
       <div>
         <div className='entity-result-item__left'>
-          <p className='entity-result-item__left-name'>Zeek</p>
+          <p className='entity-result-item__left-name'>{this.props.entity.name}</p>
           {/* <div className='entity-result-item__left-status'>
             <ul className='entity-result-item__mini-stats'>
               <li className='trust' />

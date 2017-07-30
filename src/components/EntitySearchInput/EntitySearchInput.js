@@ -9,21 +9,21 @@ import 'src/components/EntitySearchInput/EntitySearchInput.scss';
 class EntitySearchInput extends Component {
   constructor () {
     super();
-    this.onAddressSearch = this.onAddressSearch.bind(this);
     this.onInputChanged = this.onInputChanged.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
     this.onEntitySelected = this.onEntitySelected.bind(this);
     this.state = {
       isInitialized: false,
-      isResultShown: false
+      isResultShown: false,
+      entitySuggestions: []
     };
   }
 
   componentWillMount () {
-    this.debouncedSearch = _.debounce(function () {
-      axios.get(`http://localhost:3001/api/address/${this.state.address}`)
-        .then(data => {
-          this.handleTransactionsReceived(data.data);
+    this.debouncedSearch = _.debounce(function (searchTerm) {
+      axios.post('http://localhost:3001/api/entity/suggest', { name: searchTerm })
+        .then(({ data }) => {
+          this.onEntitiesFetched(data);
         })
         .catch(data => {
           console.log(data);
@@ -40,11 +40,8 @@ class EntitySearchInput extends Component {
   }
 
   onInputChanged (e) {
-    this.setState({
-      isInitialized: true,
-      isResultShown: true,
-      address: e.target.value
-    });
+    const searchTerms = e.target.value;
+    this.debouncedSearch(searchTerms);
   }
 
   onKeyPress (e) {
@@ -53,20 +50,11 @@ class EntitySearchInput extends Component {
     }
   }
 
-  onAddressSearch () {
-    this.debouncedSearch();
-  }
-
-  handleTransactionsReceived (txs) {
-    const bucketedTxs = {};
-    _.each(txs, tx => {
-      if (!_.has(bucketedTxs, tx.block_height)) {
-        bucketedTxs[tx.block_height] = [];
-      }
-      bucketedTxs[tx.block_height].push(tx);
+  onEntitiesFetched (entities) {
+    this.setState({
+      entitySuggestions: entities,
+      isResultShown: true
     });
-    const visibleTx = bucketedTxs[Object.keys(bucketedTxs)[0]];
-    this.props.dispatchSetTransactions(bucketedTxs, visibleTx);
   }
 
   render () {
@@ -87,25 +75,18 @@ class EntitySearchInput extends Component {
               type='submit'
               value='&#xf002;'
               className='input__address-search-button'
-              onClick={this.onAddressSearch}
             />
           </div>
           <div className={`entity-view__results-list ${this.state.isResultShown ? 'visible' : ''}`}>
-            <div
-              className='entity-view__result-item'
-              onClick={this.onEntitySelected}
-            >
-              <EntityResultItem />
-            </div>
-            <div className='entity-view__result-item'>
-              <EntityResultItem />
-            </div>
-            <div className='entity-view__result-item'>
-              <EntityResultItem />
-            </div>
-            <div className='entity-view__result-item'>
-              <EntityResultItem />
-            </div>
+            {
+              this.state.entitySuggestions.map(entity => {
+                return (
+                  <div key={entity._id} className='entity-view__result-item'>
+                    <EntityResultItem entity={entity} />
+                  </div>
+                );
+              })
+            }
           </div>
         </div>
       </div>
