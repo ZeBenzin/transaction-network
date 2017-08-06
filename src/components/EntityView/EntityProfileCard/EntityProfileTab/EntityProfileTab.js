@@ -15,9 +15,9 @@ class EntityProfileTab extends Component {
         <div className='entity-profile__stats'>
           <div className='entity-profile__stats-bars'>
             <ul className='entity-profile__stats-headers'>
-              <li className='entity-profile__stats-trust-icon'></li>
-              <li className='entity-profile__stats-honesty-icon'></li>
-              <li className='entity-profile__stats-disputes-icon'></li>
+              <li className='entity-profile__stats-trust-icon' />
+              <li className='entity-profile__stats-honesty-icon' />
+              <li className='entity-profile__stats-disputes-icon' />
             </ul>
             <div className='entity-profile__stats-colored-bars'>
               <div className='entity-profile__stats-bar trust' />
