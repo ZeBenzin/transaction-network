@@ -11,7 +11,7 @@ class EntitySearchInput extends Component {
     super();
     this.onInputChanged = this.onInputChanged.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
-    this.onEntitySelected = this.onEntitySelected.bind(this);
+    this.showEntityCard = this.showEntityCard.bind(this);
     this.state = {
       isInitialized: false,
       isResultShown: false,
@@ -32,13 +32,6 @@ class EntitySearchInput extends Component {
     }, 500);
   }
 
-  onEntitySelected () {
-    this.props.showProfileCard();
-    this.setState({
-      isResultShown: false
-    });
-  }
-
   onInputChanged (e) {
     const searchTerms = e.target.value;
     this.debouncedSearch(searchTerms);
@@ -48,6 +41,10 @@ class EntitySearchInput extends Component {
     if (e.keyCode === 13) {
       this.onAddressSearch();
     }
+  }
+
+  showEntityCard (entityId) {
+    this.props.showProfileCard(entityId);
   }
 
   onEntitiesFetched (entities) {
@@ -81,8 +78,11 @@ class EntitySearchInput extends Component {
             {
               this.state.entitySuggestions.map(entity => {
                 return (
-                  <div key={entity._id} className='entity-view__result-item'>
-                    <EntityResultItem entity={entity} />
+                  <div
+                    key={entity._id}
+                    className='entity-view__result-item'
+                  >
+                    <EntityResultItem entity={entity} showEntityCard={this.showEntityCard} />
                   </div>
                 );
               })

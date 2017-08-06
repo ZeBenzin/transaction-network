@@ -8,26 +8,16 @@ class EntityResultItem extends Component {
   }
 
   onEntitySelected () {
-    this.props.onEntitySelected();
+    this.props.showEntityCard(this.props.entity._id);
   }
 
   render () {
     return (
-      <div>
+      <div onClick={this.onEntitySelected}>
         <div className='entity-result-item__left'>
-          <p className='entity-result-item__left-name'>{this.props.entity.name}</p>
-          {/* <div className='entity-result-item__left-status'>
-            <ul className='entity-result-item__mini-stats'>
-              <li className='trust' />
-              <li className='honesty' />
-              <li className='disputes' />
-            </ul>
-            <div className='entity-result-item__stats-colored-bars'>
-              <div className='entity-result-item__stats-bar trust' />
-              <div className='entity-result-item__stats-bar honesty' />
-              <div className='entity-result-item__stats-bar disputes' />
-            </div>
-          </div> */}
+          <p className='entity-result-item__left-name'>
+            {this.props.entity.name}
+          </p>
         </div>
         <div className='entity-result-item__right'>
           <span className='entity-result-item__right-trust fa' />

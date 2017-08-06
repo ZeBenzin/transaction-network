@@ -19,9 +19,10 @@ class EntityView extends Component {
     this.showProfileCard = this.showProfileCard.bind(this);
   }
 
-  showProfileCard () {
+  showProfileCard (entityId) {
     this.setState({
-      isCardVisible: true
+      isCardVisible: true,
+      entityId
     });
   }
 
@@ -29,7 +30,8 @@ class EntityView extends Component {
     return (
       <div className='entity-view'>
         <EntitySearchInput showProfileCard={this.showProfileCard} />
-        <EntityProfileCard isCardVisible={this.state.isCardVisible} />
+        {this.state.isCardVisible ? <EntityProfileCard isCardVisible={this.state.isCardVisible} entityId={this.state.entityId} /> : null }
+
       </div>
     );
   }
