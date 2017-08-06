@@ -6,7 +6,8 @@ const enterNode = (selection) => {
 
   selection.append('text')
     .attr('x', d => d.size + 5)
-    .attr('dy', '.35em');
+    .attr('dy', '.35em')
+    .text(d => d.label);
 };
 
 const updateNode = (selection) => {

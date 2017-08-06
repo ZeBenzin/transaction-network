@@ -41,7 +41,7 @@ class Graph extends Component {
     this.force = d3.layout.force()
     .charge(-300)
     .size([props.width, props.height])
-    .linkDistance(100);
+    .linkDistance(125);
   }
 
   render () {
