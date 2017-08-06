@@ -43,8 +43,13 @@ class EntitySearchInput extends Component {
     }
   }
 
-  showEntityCard (entityId) {
+  showEntityCard (entityId, entityName) {
     this.props.showProfileCard(entityId);
+    this.searchInput.value = entityName;
+    this.setState({
+      isInitialized: true,
+      isResultShown: false
+    });
   }
 
   onEntitiesFetched (entities) {
@@ -67,6 +72,7 @@ class EntitySearchInput extends Component {
               autoFocus
               placeholder='Search...'
               spellCheck={false}
+              ref={r => this.searchInput = r}
             />
             <input
               type='submit'

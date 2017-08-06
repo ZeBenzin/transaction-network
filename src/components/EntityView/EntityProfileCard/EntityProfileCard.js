@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import EntityProfileTab from 'src/components/EntityView/EntityProfileCard/EntityProfileTab/EntityProfileTab';
 import SignaturesTab from 'src/components/EntityView/EntityProfileCard/SignaturesTab/SignaturesTab';
 import 'src/components/EntityView/EntityProfileCard/EntityProfileCard.scss';
@@ -10,11 +9,10 @@ class EntityProfileCard extends Component {
     this.onTabSelected = this.onTabSelected.bind(this);
     this.state = {
       tabViews: {
-        0: <EntityProfileTab />,
-        1: <SignaturesTab />
+        0: <EntityProfileTab entityId={this.props.entityId} />,
+        1: <SignaturesTab entityId={this.props.entityId} />
       },
-      shownTabKey: 0,
-      entityFetched: false
+      shownTabKey: 0
     };
   }
 
@@ -24,24 +22,9 @@ class EntityProfileCard extends Component {
     });
   }
 
-  componentWillMount () {
-    this.fetchEntity();
-  }
-
-  fetchEntity () {
-    axios.get(`http://localhost:3001/api/entity/${this.props.entityId}`)
-      .then(({data}) => {
-        this.setState({
-          entityFetched: true,
-          entity: data
-        });
-      })
-      .catch();
-  }
-
   render () {
     return (
-      <div className={`entity-profile-card${this.props.isCardVisible && this.state.entityFetched ? ' active' : ''}`}>
+      <div className={`entity-profile-card${this.props.isCardVisible ? ' active' : ''}`}>
         <div className='entity-profile-card__content'>
           <div className='entity-profile__view'>
             <ul className='entity-profile__view-tabs'>
@@ -58,7 +41,7 @@ class EntityProfileCard extends Component {
                 onClick={this.onTabSelected}
               >Signatures</a></li>
             </ul>
-            {this.state.tabViews[this.state.shownTabKey]}
+            {this.state.shownTabKey === 0 ? <EntityProfileTab entityId={this.props.entityId} /> : <SignaturesTab entityId={this.props.entityId} />}
           </div>
         </div>
       </div>

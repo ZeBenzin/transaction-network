@@ -8,7 +8,8 @@ class EntityResultItem extends Component {
   }
 
   onEntitySelected () {
-    this.props.showEntityCard(this.props.entity._id);
+    const { _id, name } = this.props.entity;
+    this.props.showEntityCard(_id, name);
   }
 
   render () {

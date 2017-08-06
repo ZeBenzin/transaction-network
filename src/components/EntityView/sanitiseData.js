@@ -1,49 +1,36 @@
 import _ from 'lodash';
 
-const getSourceNode = (nodes, sourceNodeKey, index) => {
-  const sourceNodeIndex = _.findIndex(nodes, o => o.key === sourceNodeKey);
-  if (sourceNodeIndex === -1) {
-    nodes.push({
-      index,
-      key: sourceNodeKey,
-      x: 500,
-      y: 400,
-      size: 5,
-      weight: 3
-    });
-    return nodes.length - 1;
-  }
-  return sourceNodeIndex;
+const getSignatureNode = (nodes, entity, index) => {
+  nodes.push({
+    index,
+    key: entity._id,
+    x: 500,
+    y: 400,
+    size: 10,
+    weight: 3,
+    label: entity.name
+  });
 };
 
-const getTargetNode = (nodes, targetNodeKey, index) => {
-  const targetNodeIndex = _.findIndex(nodes, o => o.key === targetNodeKey);
-  if (targetNodeIndex === -1) {
-    nodes.push({
-      index,
-      key: targetNodeKey,
-      x: 500,
-      y: 400,
-      size: 10,
-      weight: 3
-    });
-    return nodes.length - 1;
-  }
-  return targetNodeIndex;
-};
-
-const sanitiseTransactions = (transactions) => {
+const sanitiseSignatures = (entities, signedEntityId) => {
   const links = [];
-  const nodes = [];
-  _.each(transactions, (tx, index) => {
-    const sourceNodeIndex = getSourceNode(nodes, tx.inputs[0].prev_out.addr, index);
-    const targetNodeIndex = getTargetNode(nodes, tx.outputs[0].addr, index);
+  const nodes = [{
+    index: 0,
+    key: signedEntityId.entityId,
+    x: 500,
+    y: 400,
+    size: 20,
+    weight: 3,
+    label: signedEntityId.entityName
+  }];
+  _.each(entities, (entity, index) => {
+    getSignatureNode(nodes, entity, index + 1);
     links.push({
-      key: index,
-      size: 3,
-      source: nodes[sourceNodeIndex],
-      target: nodes[targetNodeIndex],
-      value: tx.total
+      key: index + 1,
+      size: 6,
+      source: nodes[index + 1],
+      target: nodes[0],
+      value: 100
     });
   });
   return {
@@ -52,8 +39,8 @@ const sanitiseTransactions = (transactions) => {
   };
 };
 
-const sanitiseData = (transactions) => {
-  const { nodes, links } = sanitiseTransactions(transactions);
+const sanitiseData = (entities, signedEntityId) => {
+  const { nodes, links } = sanitiseSignatures(entities, signedEntityId);
   return {
     nodes,
     links
