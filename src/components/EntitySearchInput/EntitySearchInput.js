@@ -21,7 +21,7 @@ class EntitySearchInput extends Component {
 
   componentWillMount () {
     this.debouncedSearch = _.debounce(function (searchTerm) {
-      axios.post('http://localhost:3001/api/entity/suggest', { name: searchTerm })
+      axios.post('/api/entity/suggest', { name: searchTerm })
         .then(({ data }) => {
           this.onEntitiesFetched(data);
         })
@@ -72,7 +72,10 @@ class EntitySearchInput extends Component {
               autoFocus
               placeholder='Search...'
               spellCheck={false}
-              ref={r => this.searchInput = r}
+              ref={r => {
+                this.searchInput = r;
+                return this.searchInput;
+              }}
             />
             <input
               type='submit'

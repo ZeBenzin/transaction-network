@@ -22,7 +22,7 @@ class SignaturesTab extends Component {
   }
 
   fetchEntity (entityId) {
-    axios.get(`http://localhost:3001/api/entity/${entityId}/signatures`)
+    axios.get(`/api/entity/${entityId}/signatures`)
       .then(({ data }) => {
         this.drawSignatureGraph(data.entities, { entityId: data.signedEntity._id, entityName: data.signedEntity.name });
       })

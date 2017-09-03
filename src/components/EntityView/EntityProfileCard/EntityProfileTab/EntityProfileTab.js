@@ -16,7 +16,7 @@ class EntityProfileTab extends Component {
   }
 
   fetchEntity (entityId) {
-    axios.get(`http://localhost:3001/api/entity/${entityId}`)
+    axios.get(`/api/entity/${entityId}`)
       .then(({data}) => {
         this.setState({
           entityFetched: true,
