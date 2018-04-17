@@ -4,7 +4,7 @@ Title XIV was a project I developed as part of my undergraduate dissertation. It
 
 ## What is Title XIV?
 
-The permise behind the project was to give the bitcoin community a degree of protection when using the cryptocurrency. Specifically, users would be able to "trust" entities in the network and flag those entities they believe to be in possession of stolen bitcoins. This would enable users to search for entities and observe the degree to which that entity is trusted before transacting with them and provide the opportunity, for users who have lost possession of their wallet, to mark it as stolen. In a similar manner to the PGP infrastructure, users would be able to build up their own web of trusted entities.
+The premise behind the project was to give the bitcoin community a degree of protection when using the cryptocurrency. Specifically, users would be able to "trust" entities in the network and flag those entities they believe to be in possession of stolen bitcoins. This would enable users to search for entities and observe the degree to which that entity is trusted before transacting with them and provide the opportunity, for users who have lost possession of their wallet, to mark it as stolen. In a similar manner to the PGP infrastructure, users would be able to build up their own web of trusted entities.
 
 ## Why Title XIV?
 
